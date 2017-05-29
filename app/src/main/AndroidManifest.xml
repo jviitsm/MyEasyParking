@@ -17,7 +17,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Cadastro"></activity>
-        <activity android:name=".Login"></activity>
     </application>
 
 </manifest>
