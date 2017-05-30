@@ -9,8 +9,9 @@ import java.util.Date;
 public class Vaga {
     private int id;
     private String nome,carro,placa;
-    private Date dataEntrada,DataSaida;
+    private String dataEntrada,dataSaida;
     private Estacionamento estacionamento;
+
 
     public int getId() {
         return id;
@@ -44,20 +45,20 @@ public class Vaga {
         this.placa = placa;
     }
 
-    public Date getDataEntrada() {
+    public String getDataEntrada() {
         return dataEntrada;
     }
 
-    public void setDataEntrada(Date dataEntrada) {
+    public void setDataEntrada(String dataEntrada) {
         this.dataEntrada = dataEntrada;
     }
 
-    public Date getDataSaida() {
-        return DataSaida;
+    public String getDataSaida() {
+        return dataSaida;
     }
 
-    public void setDataSaida(Date dataSaida) {
-        DataSaida = dataSaida;
+    public void setDataSaida(String dataSaida) {
+        this.dataSaida = dataSaida;
     }
 
     public Estacionamento getEstacionamento() {
