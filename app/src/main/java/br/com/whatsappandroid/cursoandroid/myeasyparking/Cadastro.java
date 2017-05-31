@@ -27,7 +27,7 @@ public class Cadastro extends AppCompatActivity {
         final EditText edtEstacionamento = (EditText) findViewById(R.id.edtEstacionamento);
 
         Button btCadastrar = (Button) findViewById(R.id.btCadastrar);
-
+//aa
 
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
