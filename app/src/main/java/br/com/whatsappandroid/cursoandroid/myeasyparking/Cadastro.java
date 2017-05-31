@@ -45,6 +45,7 @@ public class Cadastro extends AppCompatActivity {
                 usu.setSenha(edtSenha.getText().toString());
                 usu.setEstacionamento(estacionamento);
                 usud.salvar(usu);
+                //nada
             }
         });
     }
