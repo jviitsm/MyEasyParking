@@ -11,7 +11,7 @@ import java.util.List;
 public interface DAO<T> {
 
     public boolean salvar(T t);
-    public List<T> listar(Cursor cursor);
+    public List<T> listar();
     public boolean deletar(int id);
     public boolean atualizar(T t);
 }

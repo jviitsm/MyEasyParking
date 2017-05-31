@@ -33,7 +33,7 @@ public class VagaDAO extends GenericDAO implements DAO<Vaga> {
     }
 
     @Override
-    public List<Vaga> listar(Cursor cursor) {
+    public List<Vaga> listar() {
         return null;
     }
 

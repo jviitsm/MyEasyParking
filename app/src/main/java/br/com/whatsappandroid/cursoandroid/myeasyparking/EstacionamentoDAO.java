@@ -29,17 +29,29 @@ public class EstacionamentoDAO extends GenericDAO implements DAO<Estacionamento>
     }
 
     @Override
-    public List<Estacionamento> listar(Cursor c) {
-        List<Estacionamento> listEstacionamento = new ArrayList<Estacionamento>();
-        if(c.moveToFirst()){
-            do{
-                Estacionamento estacionamento = new Estacionamento();
-                listEstacionamento.add(estacionamento);
-                estacionamento.setId(c.getInt(c.getColumnIndex("idestacionamento")));
-                estacionamento.setNome(c.getString(c.getColumnIndex("nome")));
-            } while(c.moveToNext());
+    public List<Estacionamento> listar() {
+        return null;
+    }
+
+    public List<Estacionamento> listar(String nome) {
+        List<Estacionamento> listEstacionamento = null;
+        Cursor c = database.rawQuery("SELECT * FROM estacionamento WHERE nome=?", new String[]{nome});
+        if(c!=null) {
+            c.moveToFirst();
+            listEstacionamento = new ArrayList<Estacionamento>();
+            if(c.moveToFirst()){
+                do{
+                    Estacionamento estacionamento = new Estacionamento();
+                    estacionamento.setId(c.getInt(c.getColumnIndex("idestacionamento")));
+                    estacionamento.setNome(c.getString(c.getColumnIndex("nome")));
+
+                    listEstacionamento.add(estacionamento);
+                } while(c.moveToNext());
+            }
+
         }
         return listEstacionamento;
+
     }
 
     @Override

@@ -1,8 +1,10 @@
 package br.com.whatsappandroid.cursoandroid.myeasyparking;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,23 +21,39 @@ public class UsuarioDAO extends GenericDAO implements DAO<Usuario> {
     public UsuarioDAO(Context context) {
         super(context);
         database = getWritableDatabase();
+        estacionamento = new EstacionamentoDAO(context);
     }
 
     @Override
     public boolean salvar(Usuario usuario) {
-        Cursor c = database.query("estacionamento", null, "nome='" + usuario.getEstacionamento().getNome() +"'", null, null, null, null);
-        List<Estacionamento> estacionamentos = estacionamento.listar(c);
 
-        database.execSQL("INSERT INTO usuario(login, senha, estacionamento)" +
-            "VALUES(?,?,?)",
-                new Object[]{usuario.getLogin(),usuario.getSenha(),estacionamentos.get(0).getId()});
+            List<Estacionamento> estacionamentos = estacionamento.listar(usuario.getEstacionamento().getNome());
+            if(estacionamentos!=null){
+                if(estacionamentos.size()>0){
+                    ContentValues cv = new ContentValues();
+                    cv.put("login", usuario.getLogin());
+                    cv.put("senha", usuario.getSenha());
+                    cv.put("idestacionamento", estacionamentos.get(0).getId());
+                    try{
+                        database.insert("usuario", null, cv);
+                    } catch (Exception ex) {
+                        Log.e("joao_v", ex.getMessage());
+                    }
+
+                }
+
+        }
+
+
+
+
 
 
         return false;
     }
 
     @Override
-    public List<Usuario> listar(Cursor cursor) {
+    public List<Usuario> listar() {
         return null;
     }
 
