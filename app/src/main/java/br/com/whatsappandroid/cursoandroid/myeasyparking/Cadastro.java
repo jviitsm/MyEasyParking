@@ -51,6 +51,7 @@ public class Cadastro extends AppCompatActivity {
                         usu.setSenha(edtSenha.getText().toString());
                         usu.setEstacionamento(estacionamento);
                         usud.salvar(usu);
+
                     } else {
                         Toast.makeText(Cadastro.this, "A senhas não correspondem!", Toast.LENGTH_SHORT).show();
                     }
