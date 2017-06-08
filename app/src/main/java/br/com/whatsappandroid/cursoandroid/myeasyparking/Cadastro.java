@@ -13,8 +13,7 @@ import android.widget.Toast;
  */
 
 public class Cadastro extends AppCompatActivity {
-    private static Estacionamento estacionamento;
-    private static Usuario usu;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +26,10 @@ public class Cadastro extends AppCompatActivity {
         final EditText edtEstacionamento = (EditText) findViewById(R.id.edtEstacionamento);
 
         Button btCadastrar = (Button) findViewById(R.id.btCadastrar);
-//aa
+
+
+
+
 
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -35,22 +37,23 @@ public class Cadastro extends AppCompatActivity {
                 if(edtUser.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty() ||
                         edtRepetirSenha.getText().toString().isEmpty() || edtEstacionamento.getText().toString().isEmpty()){
                     Toast.makeText(Cadastro.this,"Preencha todos os campos!",Toast.LENGTH_SHORT).show();
-                }else {
-                    EstacionamentoDAO esta = new EstacionamentoDAO(Cadastro.this);
-                    if (estacionamento == null) {
-                        estacionamento = new Estacionamento();
-                    }
+                }
+                else {
+                    EstacionamentoDAO estaD = new EstacionamentoDAO(Cadastro.this);
+                    Estacionamento estacionamento = new Estacionamento();
+
+
                     estacionamento.setNome(edtEstacionamento.getText().toString());
-                    esta.salvar(estacionamento);
-                    UsuarioDAO usud = new UsuarioDAO(Cadastro.this);
-                    if (usu == null) {
-                        usu = new Usuario();
-                    }
+                    estaD.salvar(estacionamento);
+
                     if (edtSenha.getText().toString().equals(edtRepetirSenha.getText().toString())) {
-                        usu.setLogin(edtUser.getText().toString());
-                        usu.setSenha(edtSenha.getText().toString());
-                        usu.setEstacionamento(estacionamento);
-                        usud.salvar(usu);
+                        UsuarioDAO usuD = new UsuarioDAO(Cadastro.this);
+                        Usuario user = new Usuario();
+                        user.setLogin(edtUser.getText().toString());
+                        user.setSenha(edtSenha.getText().toString());
+                        user.setEstacionamento(estacionamento);
+                        usuD.salvar(user);
+
 
                     } else {
                         Toast.makeText(Cadastro.this, "A senhas não correspondem!", Toast.LENGTH_SHORT).show();
@@ -58,5 +61,8 @@ public class Cadastro extends AppCompatActivity {
                 }
             }
         });
+    }
+    public void usuarioCadastrar(){
+
     }
 }
