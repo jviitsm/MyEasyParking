@@ -12,7 +12,7 @@ import android.widget.Toast;
  * Created by root on 29/05/17.
  */
 
-public class Cadastro extends AppCompatActivity {
+public class TelaCadastro extends AppCompatActivity {
 
 
     @Override
@@ -29,17 +29,15 @@ public class Cadastro extends AppCompatActivity {
 
 
 
-
-
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(edtUser.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty() ||
                         edtRepetirSenha.getText().toString().isEmpty() || edtEstacionamento.getText().toString().isEmpty()){
-                    Toast.makeText(Cadastro.this,"Preencha todos os campos!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(TelaCadastro.this,"Preencha todos os campos!",Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    EstacionamentoDAO estaD = new EstacionamentoDAO(Cadastro.this);
+                    EstacionamentoDAO estaD = new EstacionamentoDAO(TelaCadastro.this);
                     Estacionamento estacionamento = new Estacionamento();
 
 
@@ -47,16 +45,21 @@ public class Cadastro extends AppCompatActivity {
                     estaD.salvar(estacionamento);
 
                     if (edtSenha.getText().toString().equals(edtRepetirSenha.getText().toString())) {
-                        UsuarioDAO usuD = new UsuarioDAO(Cadastro.this);
+                        UsuarioDAO usuD = new UsuarioDAO(TelaCadastro.this);
                         Usuario user = new Usuario();
                         user.setLogin(edtUser.getText().toString());
                         user.setSenha(edtSenha.getText().toString());
                         user.setEstacionamento(estacionamento);
                         usuD.salvar(user);
 
+                        edtUser.setText(null);
+                        edtRepetirSenha.setText(null);
+                        edtSenha.setText(null);
+                        edtEstacionamento.setText(null);
+                        Toast.makeText(TelaCadastro.this,"Cadastro Realizado Com Sucesso!",Toast.LENGTH_LONG).show();
 
                     } else {
-                        Toast.makeText(Cadastro.this, "A senhas não correspondem!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(TelaCadastro.this, "A senhas não correspondem!", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

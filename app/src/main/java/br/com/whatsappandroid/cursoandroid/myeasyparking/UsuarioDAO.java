@@ -43,18 +43,46 @@ public class UsuarioDAO extends GenericDAO implements DAO<Usuario> {
                 }
 
         }
-
-
-
-
-
-
         return false;
     }
 
     @Override
     public List<Usuario> listar() {
         return null;
+    }
+
+    public boolean login(String login, String senha){
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM USUARIO a " +
+                "INNER JOIN ESTACIONAMENTO b ON a.idestacionamento = b.idestacionamento where a.login='" + login + "'", null);
+        List<Usuario> usuarios = listar(c);
+
+        if(usuarios.size() == 1 && usuarios.get(0).getLogin().equals(login) && usuarios.get(0).getSenha().equals(senha)){
+            UsuarioSingleton us = new UsuarioSingleton();
+            us.setInstance(usuarios.get(0));
+            return true;
+        }
+        return false;
+    }
+
+    public List<Usuario> listar(Cursor c) {
+        SQLiteDatabase db = getWritableDatabase();
+        List<Usuario> usuarios = new ArrayList<Usuario>();
+        if(c.moveToFirst()){
+            do{
+                Usuario usuario = new Usuario();
+                usuarios.add(usuario);
+                usuario.setId(c.getInt(c.getColumnIndex("idcliente")));
+                usuario.setLogin(c.getString(c.getColumnIndex("login")));
+                usuario.setSenha(c.getString(c.getColumnIndex("senha")));
+                Estacionamento estacionamento = new Estacionamento();
+                estacionamento.setId(c.getInt(c.getColumnIndex("idestacionamento")));
+                estacionamento.setNome(c.getString(c.getColumnIndex("nome")));
+                usuario.setEstacionamento(estacionamento);
+            }while (c.moveToNext());
+        }
+        return usuarios;
+
     }
 
 

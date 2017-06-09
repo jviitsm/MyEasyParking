@@ -3,4 +3,29 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Usuário Logado: "
+        />
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="70dp"
+        />
+    <Button
+        android:id="@+id/btCadastrarVaga"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar Vaga" />
+
+    <Button
+        android:id="@+id/btDarBaixa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dar Baixa" />
+
+
 </LinearLayout>

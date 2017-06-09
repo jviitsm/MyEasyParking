@@ -8,6 +8,7 @@ public class Usuario {
     private int id;
     private String login,senha;
     private Estacionamento estacionamento;
+    private int idEstacionamento;
 
     public int getId() {
         return id;
@@ -39,5 +40,13 @@ public class Usuario {
 
     public void setEstacionamento(Estacionamento estacionamento) {
         this.estacionamento = estacionamento;
+    }
+
+    public int getIdEstacionamento() {
+        return idEstacionamento;
+    }
+
+    public void setIdEstacionamento(int idEstacionamento) {
+        this.idEstacionamento = idEstacionamento;
     }
 }
