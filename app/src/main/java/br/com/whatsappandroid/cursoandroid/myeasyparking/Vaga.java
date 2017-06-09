@@ -68,4 +68,9 @@ public class Vaga {
     public void setEstacionamento(Estacionamento estacionamento) {
         this.estacionamento = estacionamento;
     }
+
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }

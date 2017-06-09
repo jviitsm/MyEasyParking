@@ -57,6 +57,7 @@ public class TelaCadastro extends AppCompatActivity {
                         edtSenha.setText(null);
                         edtEstacionamento.setText(null);
                         Toast.makeText(TelaCadastro.this,"Cadastro Realizado Com Sucesso!",Toast.LENGTH_LONG).show();
+                        finish();
 
                     } else {
                         Toast.makeText(TelaCadastro.this, "A senhas não correspondem!", Toast.LENGTH_SHORT).show();

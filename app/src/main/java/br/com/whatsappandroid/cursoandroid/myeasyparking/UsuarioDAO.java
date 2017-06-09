@@ -18,6 +18,7 @@ public class UsuarioDAO extends GenericDAO implements DAO<Usuario> {
     private SQLiteDatabase database;
     private EstacionamentoDAO estacionamento;
 
+
     public UsuarioDAO(Context context) {
         super(context);
         database = getWritableDatabase();
@@ -44,6 +45,7 @@ public class UsuarioDAO extends GenericDAO implements DAO<Usuario> {
 
         }
         return false;
+
     }
 
     @Override
