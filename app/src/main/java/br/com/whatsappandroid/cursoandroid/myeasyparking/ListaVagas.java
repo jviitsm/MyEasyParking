@@ -1,6 +1,7 @@
 package br.com.whatsappandroid.cursoandroid.myeasyparking;
 
 import android.content.DialogInterface;
+import android.icu.util.DateInterval;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -10,6 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by root on 09/06/17.
@@ -22,10 +29,10 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tela_baixa);
 
-         VagaDAO vDAO = new VagaDAO(this);
+        VagaDAO vDAO = new VagaDAO(this);
         UsuarioSingleton us = new UsuarioSingleton();
 
-      lista = (ListView) findViewById(R.id.listView);
+        lista = (ListView) findViewById(R.id.listView);
 
         atualizaListaVagas();
 
@@ -37,7 +44,7 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
-        if(vaga !=null){
+        if (vaga != null) {
             new AlertDialog.Builder(ListaVagas.this)
                     .setTitle("Encerrar Uso Da Vaga")
                     .setMessage("O uso da vaga " + vaga.getNome() + " está em X R$")
@@ -45,9 +52,20 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
                     .setPositiveButton("Dar Baixa", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                           VagaDAO vd = new VagaDAO(ListaVagas.this);
+                            VagaDAO vd = new VagaDAO(ListaVagas.this);
+
+
+
+
+
+                            getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES);
+
+
+                            System.out.println(getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES));
+
                             vd.deletar(vaga.getId());
                             atualizaListaVagas();
+
 
                         }
                     })
@@ -60,7 +78,8 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
 
         }
     }
-    private void atualizaListaVagas(){
+
+    private void atualizaListaVagas() {
         VagaDAO dao = new VagaDAO(this);
         UsuarioSingleton us = new UsuarioSingleton();
         ArrayAdapter<Vaga> arrayAdapter = new ArrayAdapter<Vaga>(this,
@@ -68,4 +87,63 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
 
         lista.setAdapter(arrayAdapter);
     }
+
+
+    public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+    }
+
+
+    public Date calcularDaVaga(Vaga vaga){
+
+
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String dataDeEntrada = vaga.getDataEntrada();
+
+        try{
+            Date dataDaVaga = df.parse(dataDeEntrada);
+            return dataDaVaga;
+        }catch (ParseException e){
+            e.printStackTrace();
+            return null;
+        }
+    }
+    public Date calcularDataAtual(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        String dataAtual = df.format(c.getTime());
+        try{
+            Date dataNow = df.parse(dataAtual);
+            return dataNow;
+        }catch (ParseException e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+
+      /* public Date calcularDatas(Vaga vaga){
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+
+        String dataAtual = df.format(c.getTime());
+        String dataDeEntrada = vaga.getDataEntrada();
+        try {
+            Date dataDeSaida = df.parse(dataAtual);
+            System.out.println(df.format(dataDeSaida));
+            Date datadeEntrada = df.parse(dataDeEntrada);
+            System.out.println(df.format(datadeEntrada));
+
+        return dataDeSaida;
+        return datadeEntrada;
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+
+        }
+    }*/
 }
