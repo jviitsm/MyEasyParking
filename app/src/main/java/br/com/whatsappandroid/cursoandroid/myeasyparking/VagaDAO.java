@@ -93,6 +93,9 @@ public class VagaDAO extends GenericDAO implements DAO<Vaga> {
     }
     @Override
     public boolean deletar(int id) {
+      SQLiteDatabase  db = getWritableDatabase();
+        db.execSQL("DELETE FROM vaga WHERE idvaga=?",
+                new Object[]{id});
         return false;
     }
 

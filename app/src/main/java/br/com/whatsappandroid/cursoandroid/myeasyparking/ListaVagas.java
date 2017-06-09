@@ -16,6 +16,7 @@ import android.widget.Toast;
  */
 
 public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    private ListView lista;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +25,10 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
          VagaDAO vDAO = new VagaDAO(this);
         UsuarioSingleton us = new UsuarioSingleton();
 
-        ListView lista = (ListView) findViewById(R.id.listView);
-        ArrayAdapter<Vaga> adapter =
-                new ArrayAdapter<Vaga>(this,android.R.layout.simple_list_item_1,
-                        vDAO.listar(us.getInstance().getEstacionamento().getId()));
-        lista.setAdapter(adapter);
+      lista = (ListView) findViewById(R.id.listView);
+
+        atualizaListaVagas();
+
         lista.setOnItemClickListener(this);
 
 
@@ -36,7 +36,7 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
+        final Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
         if(vaga !=null){
             new AlertDialog.Builder(ListaVagas.this)
                     .setTitle("Encerrar Uso Da Vaga")
@@ -45,7 +45,10 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
                     .setPositiveButton("Dar Baixa", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            finish();
+                           VagaDAO vd = new VagaDAO(ListaVagas.this);
+                            vd.deletar(vaga.getId());
+                            atualizaListaVagas();
+
                         }
                     })
                     .setNegativeButton("Cancelar",
@@ -56,5 +59,13 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
                             }).show();
 
         }
+    }
+    private void atualizaListaVagas(){
+        VagaDAO dao = new VagaDAO(this);
+        UsuarioSingleton us = new UsuarioSingleton();
+        ArrayAdapter<Vaga> arrayAdapter = new ArrayAdapter<Vaga>(this,
+                android.R.layout.simple_list_item_1, dao.listar(us.getInstance().getEstacionamento().getId()));
+
+        lista.setAdapter(arrayAdapter);
     }
 }

@@ -23,13 +23,15 @@ public class TelaGerenciar extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tela_gerenciar);
 
-        TextView ed = (TextView) findViewById(R.id.textView);
+        TextView ed = (TextView) findViewById(R.id.txtUsuario);
+        TextView txtEsta = (TextView) findViewById(R.id.txtEstacionamento);
         Button btCadastrarVaga = (Button) findViewById(R.id.btCadastrarVaga);
         Button btBaixa = (Button) findViewById(R.id.btDarBaixa);
         UsuarioSingleton us = new UsuarioSingleton();
 
 
-                ed.setText(us.getInstance().getLogin().toString());
+                ed.setText("Usuário: " + us.getInstance().getLogin().toString());
+                txtEsta.setText("Estacionamento: " + us.getInstance().getEstacionamento().getNome());
 
         btCadastrarVaga.setOnClickListener(new View.OnClickListener() {
             @Override

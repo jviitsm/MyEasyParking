@@ -18,7 +18,7 @@ public class GenericDAO extends SQLiteOpenHelper {
             ");";
     private String sqlTabelaUsuario = "CREATE TABLE IF NOT EXISTS usuario(" +
             "idcliente INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "login VARCHAR(45) NOT NULL," +
+            "login VARCHAR(45) NOT NULL UNIQUE," +
             "senha VARCHAR(45) NOT NULL," +
             "idestacionamento INTEGER, " +
             "FOREIGN KEY (idestacionamento) REFERENCES estacionamento(idestacionamento)" +
