@@ -9,12 +9,16 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 
 public class GenericDAO extends SQLiteOpenHelper {
-    private static final String NOME_BANCO = "bddados";
+    private static final String NOME_BANCO = "bancov3";
     private static final int VERSAO = 1;
 
     private String sqlTabelaEstacionamento = "CREATE TABLE IF NOT EXISTS estacionamento(" +
             "idestacionamento INTEGER PRIMARY KEY AUTOINCREMENT," +
-            "nome VARCHAR(45) NOT NULL " +
+            "nome VARCHAR(45) NOT NULL, " +
+            "minutos_gratis INTEGER NOT NULL," +
+            "preco_fixo INTEGER NOT NULL," +
+            "minutos_pago INTEGER NOT NULL," +
+            "hora_extra INTEGER NOT NULL" +
             ");";
     private String sqlTabelaUsuario = "CREATE TABLE IF NOT EXISTS usuario(" +
             "idcliente INTEGER PRIMARY KEY AUTOINCREMENT," +

@@ -1,8 +1,10 @@
 package br.com.whatsappandroid.cursoandroid.myeasyparking;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +24,18 @@ public class EstacionamentoDAO extends GenericDAO implements DAO<Estacionamento>
 
     @Override
     public boolean salvar(Estacionamento estacionamento) {
-        database.execSQL("INSERT INTO estacionamento(nome)" +
-                        "VALUES(?)",
-                new Object[]{estacionamento.getNome()});
+        ContentValues cv = new ContentValues();
+        cv.put("nome", estacionamento.getNome());
+        cv.put("minutos_gratis", estacionamento.getMinutosGratis());
+        cv.put("preco_fixo" , estacionamento.getPrecoFixo());
+        cv.put("minutos_pago", estacionamento.getMinutosPago());
+        cv.put("hora_extra", estacionamento.getHoraExtra());
+        try{
+            database.insert("estacionamento", null, cv);
+        } catch (Exception ex) {
+            Log.e("joao_v", ex.getMessage());
+        }
+
         return false;
     }
 

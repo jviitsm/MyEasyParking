@@ -25,6 +25,11 @@ public class TelaCadastro extends AppCompatActivity {
         final EditText edtRepetirSenha = (EditText) findViewById(R.id.edtSenhaRepetir);
         final EditText edtEstacionamento = (EditText) findViewById(R.id.edtEstacionamento);
 
+        final EditText  edtTempoGratis = (EditText) findViewById(R.id.edtTempoGratis);
+        final EditText edtTempoMinimo =  (EditText) findViewById(R.id.edtTempoMinimo);
+        final EditText edtValorHoraExtra = (EditText) findViewById(R.id.edtValorHoraExtra);
+        final EditText edtPrecoFixo = (EditText) findViewById(R.id.edtValorCobradoPeloMinimo);
+
         Button btCadastrar = (Button) findViewById(R.id.btCadastrar);
 
 
@@ -33,7 +38,9 @@ public class TelaCadastro extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if(edtUser.getText().toString().isEmpty() || edtSenha.getText().toString().isEmpty() ||
-                        edtRepetirSenha.getText().toString().isEmpty() || edtEstacionamento.getText().toString().isEmpty()){
+                        edtRepetirSenha.getText().toString().isEmpty() || edtEstacionamento.getText().toString().isEmpty() ||
+                        edtPrecoFixo.getText().toString().isEmpty() || edtTempoGratis.getText().toString().isEmpty() ||
+                        edtTempoMinimo.getText().toString().isEmpty() || edtValorHoraExtra.getText().toString().isEmpty()){
                     Toast.makeText(TelaCadastro.this,"Preencha todos os campos!",Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -42,6 +49,11 @@ public class TelaCadastro extends AppCompatActivity {
 
 
                     estacionamento.setNome(edtEstacionamento.getText().toString());
+                    estacionamento.setHoraExtra(Integer.parseInt(edtValorHoraExtra.getText().toString()));
+                    estacionamento.setMinutosGratis(Integer.parseInt(edtTempoGratis.getText().toString()));
+                    estacionamento.setMinutosPago(Integer.parseInt(edtTempoMinimo.getText().toString()));
+                    estacionamento.setPrecoFixo(Integer.parseInt(edtPrecoFixo.getText().toString()));
+
                     estaD.salvar(estacionamento);
 
                     if (edtSenha.getText().toString().equals(edtRepetirSenha.getText().toString())) {
