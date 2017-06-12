@@ -19,17 +19,19 @@ public class EstacionamentoDAO extends GenericDAO implements DAO<Estacionamento>
 
     public EstacionamentoDAO(Context context) {
         super(context);
-        database =getWritableDatabase();
+        database = getWritableDatabase();
     }
 
     @Override
     public boolean salvar(Estacionamento estacionamento) {
+
         ContentValues cv = new ContentValues();
         cv.put("nome", estacionamento.getNome());
         cv.put("minutos_gratis", estacionamento.getMinutosGratis());
         cv.put("preco_fixo" , estacionamento.getPrecoFixo());
         cv.put("minutos_pago", estacionamento.getMinutosPago());
         cv.put("hora_extra", estacionamento.getHoraExtra());
+
         try{
             database.insert("estacionamento", null, cv);
         } catch (Exception ex) {

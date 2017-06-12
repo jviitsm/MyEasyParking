@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,31 +35,44 @@ public class TelaCadastrarVaga extends AppCompatActivity {
         btCadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                VagaDAO vDAO = new VagaDAO(TelaCadastrarVaga.this);
-                UsuarioSingleton us = new UsuarioSingleton();
-                Vaga vaga = new Vaga();
+
+                if(edtModelo.getText().toString().isEmpty() || edtPlaca.getText().toString().isEmpty() ||
+                        edtVaga.getText().toString().isEmpty()){
+                    Toast.makeText(TelaCadastrarVaga.this, "Preencha Todos os Campos!", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
 
-                Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
-               String formatDate = df.format(c.getTime());
-
+                    VagaDAO vDAO = new VagaDAO(TelaCadastrarVaga.this);
+                    UsuarioSingleton us = new UsuarioSingleton();
+                    Vaga vaga = new Vaga();
 
 
+                    Calendar c = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
-                Estacionamento esta = new Estacionamento();
-                esta.setId(us.getInstance().getEstacionamento().getId());
-                esta.setNome(us.getInstance().getEstacionamento().getNome());
+                    String formatDate = df.format(c.getTime());
 
 
-                vaga.setNome(edtVaga.getText().toString());
-                vaga.setCarro(edtModelo.getText().toString());
-                vaga.setPlaca(edtPlaca.getText().toString());
-                vaga.setDataEntrada(formatDate);
-                vaga.setEstacionamento(esta);
-                vDAO.salvar(vaga);
+                    Estacionamento esta = us.getInstance().getEstacionamento();
 
+
+                    vaga.setNome(edtVaga.getText().toString());
+                    vaga.setCarro(edtModelo.getText().toString());
+                    vaga.setPlaca(edtPlaca.getText().toString());
+                    vaga.setDataEntrada(formatDate);
+                    vaga.setEstacionamento(esta);
+                    vDAO.salvar(vaga);
+
+
+                    edtModelo.setText(null);
+                    edtPlaca.setText(null);
+                    edtVaga.setText(null);
+
+                    finish();
+                    Toast.makeText(TelaCadastrarVaga.this, "Vaga Cadastrada Com Sucesso!", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });

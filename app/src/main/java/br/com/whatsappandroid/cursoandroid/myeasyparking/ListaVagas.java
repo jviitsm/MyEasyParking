@@ -14,8 +14,10 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -32,23 +34,59 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
         VagaDAO vDAO = new VagaDAO(this);
         UsuarioSingleton us = new UsuarioSingleton();
 
+
+
         lista = (ListView) findViewById(R.id.listView);
 
+
         atualizaListaVagas();
+
 
         lista.setOnItemClickListener(this);
 
 
+
     }
 
+    public long calcularValor(long minutos, Vaga vaga){
+       Estacionamento estaVaga = vaga.getEstacionamento();
+        long hora = 60;
+        if(minutos <= estaVaga.getMinutosGratis()){
+            return 0;
+        }
+        else if(minutos >= estaVaga.getMinutosGratis() && minutos < estaVaga.getMinutosPago()){
+            long a = estaVaga.getPrecoFixo();
+            return a;
+        }
+        else if(minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + hora){
+            long a =0;
+            a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra();
+            return a;
+        }
+        else if(minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + (hora *2)){
+            long a =0;
+            a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra() + estaVaga.getHoraExtra();
+            return a;
+        }
+        else{
+            return 30;
+        }
+
+
+
+
+    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
         if (vaga != null) {
             new AlertDialog.Builder(ListaVagas.this)
+
+
                     .setTitle("Encerrar Uso Da Vaga")
-                    .setMessage("O uso da vaga " + vaga.getNome() + " está em X R$")
-                    .setCancelable(true)
+                    .setMessage("O uso da vaga " + vaga.getNome() + " está em " +
+                            calcularValor(getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES),vaga) + "R$"
+ )                  .setCancelable(true)
                     .setPositiveButton("Dar Baixa", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -56,13 +94,7 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
 
 
 
-
-
                             getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES);
-
-
-                            System.out.println(getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES));
-
                             vd.deletar(vaga.getId());
                             atualizaListaVagas();
 
@@ -82,10 +114,16 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
     private void atualizaListaVagas() {
         VagaDAO dao = new VagaDAO(this);
         UsuarioSingleton us = new UsuarioSingleton();
+
+
+
         ArrayAdapter<Vaga> arrayAdapter = new ArrayAdapter<Vaga>(this,
                 android.R.layout.simple_list_item_1, dao.listar(us.getInstance().getEstacionamento().getId()));
 
-        lista.setAdapter(arrayAdapter);
+
+            lista.setAdapter(arrayAdapter);
+
+
     }
 
 
@@ -125,6 +163,7 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
     }
 
 
+
       /* public Date calcularDatas(Vaga vaga){
 
         Calendar c = Calendar.getInstance();
@@ -147,3 +186,4 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
         }
     }*/
 }
+
