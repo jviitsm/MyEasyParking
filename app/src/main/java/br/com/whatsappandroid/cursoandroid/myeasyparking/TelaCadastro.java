@@ -70,6 +70,7 @@ public class TelaCadastro extends AppCompatActivity {
                         edtEstacionamento.setText(null);
 
                         finish();
+                        //a
                         Toast.makeText(TelaCadastro.this,"Cadastro Realizado Com Sucesso!",Toast.LENGTH_LONG).show();
 
                     } else {
