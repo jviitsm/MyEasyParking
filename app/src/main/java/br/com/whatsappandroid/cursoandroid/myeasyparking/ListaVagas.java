@@ -52,17 +52,23 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
+        StringBuilder builder = new StringBuilder();
+        builder.append("A Vaga " + vaga.getNome()+" \n");
+        builder.append("Com o Carro "+vaga.getCarro()+ "\n");
+        builder.append("De Placa " + vaga.getPlaca() + "\n");
+        builder.append("Está em " +
+                calcularValor(getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES),vaga) + "R$");
         if (vaga != null) {
             new AlertDialog.Builder(ListaVagas.this)
 
 
                     .setTitle("Encerrar Uso Da Vaga")
-                    .setMessage("O uso da vaga " + vaga.getNome() + " está em " +
-                            calcularValor(getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES),vaga) + "R$"
- )                  .setCancelable(true)
+                    .setMessage(builder.toString())
                     .setPositiveButton("Dar Baixa", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
+
+
                             VagaDAO vd = new VagaDAO(ListaVagas.this);
 
 
