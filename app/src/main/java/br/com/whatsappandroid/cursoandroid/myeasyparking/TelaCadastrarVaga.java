@@ -57,20 +57,28 @@ public class TelaCadastrarVaga extends AppCompatActivity {
                     Estacionamento esta = us.getInstance().getEstacionamento();
 
 
-                    vaga.setNome(edtVaga.getText().toString());
-                    vaga.setCarro(edtModelo.getText().toString());
-                    vaga.setPlaca(edtPlaca.getText().toString());
-                    vaga.setDataEntrada(formatDate);
-                    vaga.setEstacionamento(esta);
-                    vDAO.salvar(vaga);
+                    if(!vDAO.listarPorNome("Vaga " + edtVaga.getText().toString(),us.getInstance().getEstacionamento().getId())){
+                        vaga.setNome(edtVaga.getText().toString());
+                        vaga.setCarro(edtModelo.getText().toString());
+                        vaga.setPlaca(edtPlaca.getText().toString());
+                        vaga.setDataEntrada(formatDate);
+                        vaga.setEstacionamento(esta);
+                        vDAO.salvar(vaga);
 
 
-                    edtModelo.setText(null);
-                    edtPlaca.setText(null);
-                    edtVaga.setText(null);
+                        edtModelo.setText(null);
+                        edtPlaca.setText(null);
+                        edtVaga.setText(null);
 
-                    finish();
-                    Toast.makeText(TelaCadastrarVaga.this, "Vaga Cadastrada Com Sucesso!", Toast.LENGTH_SHORT).show();
+                        finish();
+                        Toast.makeText(TelaCadastrarVaga.this, "Vaga Cadastrada Com Sucesso!", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(TelaCadastrarVaga.this, "Já Existe Uma Vaga Com Este Nome!", Toast.LENGTH_SHORT).show();
+                        edtVaga.setText(null);
+                    }
+
+
 
                 }
 

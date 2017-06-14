@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 /**
@@ -30,7 +31,10 @@ public class TelaCadastro extends AppCompatActivity {
         final EditText edtValorHoraExtra = (EditText) findViewById(R.id.edtValorHoraExtra);
         final EditText edtPrecoFixo = (EditText) findViewById(R.id.edtValorCobradoPeloMinimo);
 
+        ImageView imgCadastrar = (ImageView) findViewById(R.id.imgCadastrar);
+
         Button btCadastrar = (Button) findViewById(R.id.btCadastrar);
+
 
 
 
@@ -79,8 +83,11 @@ public class TelaCadastro extends AppCompatActivity {
                 }
             }
         });
-    }
-    public void usuarioCadastrar(){
+
+
 
     }
+
+
+
 }

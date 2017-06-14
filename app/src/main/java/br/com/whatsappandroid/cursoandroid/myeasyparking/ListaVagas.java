@@ -48,34 +48,7 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
 
     }
 
-    public long calcularValor(long minutos, Vaga vaga){
-       Estacionamento estaVaga = vaga.getEstacionamento();
-        long hora = 60;
-        if(minutos <= estaVaga.getMinutosGratis()){
-            return 0;
-        }
-        else if(minutos >= estaVaga.getMinutosGratis() && minutos < estaVaga.getMinutosPago()){
-            long a = estaVaga.getPrecoFixo();
-            return a;
-        }
-        else if(minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + hora){
-            long a =0;
-            a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra();
-            return a;
-        }
-        else if(minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + (hora *2)){
-            long a =0;
-            a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra() + estaVaga.getHoraExtra();
-            return a;
-        }
-        else{
-            return 30;
-        }
 
-
-
-
-    }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
@@ -96,6 +69,7 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
 
                             getDateDiff(calcularDaVaga(vaga),calcularDataAtual(),TimeUnit.MINUTES);
                             vd.deletar(vaga.getId());
+                            Toast.makeText(ListaVagas.this, "Vaga Finalizada Com Sucesso!", Toast.LENGTH_SHORT).show();
                             atualizaListaVagas();
 
 
@@ -161,29 +135,31 @@ public class ListaVagas extends AppCompatActivity implements AdapterView.OnItemC
         }
 
     }
-
-
-
-      /* public Date calcularDatas(Vaga vaga){
-
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
-        String dataAtual = df.format(c.getTime());
-        String dataDeEntrada = vaga.getDataEntrada();
-        try {
-            Date dataDeSaida = df.parse(dataAtual);
-            System.out.println(df.format(dataDeSaida));
-            Date datadeEntrada = df.parse(dataDeEntrada);
-            System.out.println(df.format(datadeEntrada));
-
-        return dataDeSaida;
-        return datadeEntrada;
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-
+    public long calcularValor(long minutos, Vaga vaga){
+        Estacionamento estaVaga = vaga.getEstacionamento();
+        long hora = 60;
+        if(minutos <= estaVaga.getMinutosGratis()){
+            return 0;
         }
-    }*/
+        else if(minutos >= estaVaga.getMinutosGratis() && minutos < estaVaga.getMinutosPago()){
+            long a = estaVaga.getPrecoFixo();
+            return a;
+        }
+        else if(minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + hora){
+            long a =0;
+            a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra();
+            return a;
+        }
+        else if(minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + (hora *2)){
+            long a =0;
+            a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra() + estaVaga.getHoraExtra();
+            return a;
+        }
+        else
+        {
+            return 30;
+        }
+
+    }
 }
 
