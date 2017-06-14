@@ -1,4 +1,4 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.DAO;
 
 import android.database.Cursor;
 

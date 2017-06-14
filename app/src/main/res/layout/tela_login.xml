@@ -2,52 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1"
+
+    >
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="Usuário: "
-        />
+    <ImageView
+        android:layout_width="325dp"
+        android:layout_height="198dp"
+        android:src="@drawable/logo2"
+        android:layout_gravity="center"/>
+
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    >
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edtLogin"
         android:inputType="text"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30dp"
-        android:text="Senha:"
+        android:hint="Usuário"
+        android:textAlignment="center"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edtSenha"
         android:inputType="textPassword"
+        android:hint="Senha"
+        android:textAlignment="center"
         />
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Fazer Login"
         android:id="@+id/btLogin"
-
         />
-
     <Button
         android:id="@+id/btCadastrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Cadastrar" />
-
-    <ImageView
-        android:id="@+id/imgCadastrar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/button_cadastrar" />
+</LinearLayout>
 
 
 </LinearLayout>

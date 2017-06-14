@@ -1,4 +1,4 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import br.com.whatsappandroid.cursoandroid.myeasyparking.R;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.UsuarioDAO;
 
 public class TelaLogin extends AppCompatActivity {
 
@@ -42,7 +45,7 @@ public class TelaLogin extends AppCompatActivity {
                     Intent i = new Intent(TelaLogin.this,TelaGerenciar.class);
                     startActivity(i);
                 }
-                else Toast.makeText(TelaLogin.this,"TA ERRADO",Toast.LENGTH_SHORT).show();
+                else Toast.makeText(TelaLogin.this,"Login ou Senha Invalido(a)",Toast.LENGTH_SHORT).show();
 
 
 

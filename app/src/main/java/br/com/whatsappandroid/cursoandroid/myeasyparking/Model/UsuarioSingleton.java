@@ -1,4 +1,6 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.Model;
+
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Usuario;
 
 /**
  * Created by root on 08/06/17.

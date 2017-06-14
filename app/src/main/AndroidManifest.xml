@@ -9,17 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TelaLogin">
+        <activity android:name=".Activities.TelaSplash" >
+
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TelaCadastro"></activity>
-        <activity android:name=".TelaGerenciar"></activity>
-        <activity android:name=".TelaCadastrarVaga"></activity>
-        <activity android:name=".ListaVagas"></activity>
+        <activity android:name=".Activities.TelaCadastro"></activity>
+        <activity android:name=".Activities.TelaGerenciar"></activity>
+        <activity android:name=".Activities.TelaCadastrarVaga"></activity>
+        <activity android:name=".Activities.ListaVagas"></activity>
+        <activity android:name=".Activities.TelaLogin"></activity>
     </application>
 
 </manifest>

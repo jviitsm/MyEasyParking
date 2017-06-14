@@ -1,4 +1,4 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.Model;
 
 /**
  * Created by root on 29/05/17.

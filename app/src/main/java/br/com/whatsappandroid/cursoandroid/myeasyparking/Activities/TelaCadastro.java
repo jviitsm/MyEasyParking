@@ -1,4 +1,4 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.Activities;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,8 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Estacionamento;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.EstacionamentoDAO;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.R;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Usuario;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.UsuarioDAO;
 
 /**
  * Created by root on 29/05/17.
@@ -31,7 +36,6 @@ public class TelaCadastro extends AppCompatActivity {
         final EditText edtValorHoraExtra = (EditText) findViewById(R.id.edtValorHoraExtra);
         final EditText edtPrecoFixo = (EditText) findViewById(R.id.edtValorCobradoPeloMinimo);
 
-        ImageView imgCadastrar = (ImageView) findViewById(R.id.imgCadastrar);
 
         Button btCadastrar = (Button) findViewById(R.id.btCadastrar);
 

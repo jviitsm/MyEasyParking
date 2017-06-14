@@ -1,7 +1,6 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.Activities;
 
 import android.content.DialogInterface;
-import android.icu.util.DateInterval;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -14,11 +13,15 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.VagaDAO;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Estacionamento;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.UsuarioSingleton;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Vaga;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.R;
 
 /**
  * Created by root on 09/06/17.

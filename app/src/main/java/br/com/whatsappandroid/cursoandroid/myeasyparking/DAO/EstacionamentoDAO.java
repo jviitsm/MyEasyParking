@@ -1,4 +1,4 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.DAO;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +8,10 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.DAO;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.GenericDAO;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Estacionamento;
 
 /**
  * Created by root on 29/05/17.

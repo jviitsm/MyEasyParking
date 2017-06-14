@@ -1,18 +1,16 @@
-package br.com.whatsappandroid.cursoandroid.myeasyparking;
+package br.com.whatsappandroid.cursoandroid.myeasyparking.Activities;
 
 import android.content.Intent;
-import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
-import java.sql.Time;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.R;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.UsuarioSingleton;
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.VagaDAO;
 
 /**
  * Created by root on 08/06/17.
