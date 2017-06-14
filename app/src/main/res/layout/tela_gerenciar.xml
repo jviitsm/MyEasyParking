@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Total de vagas em uso: "
         android:textSize="25dp"
+        android:id="@+id/txtNumeroDeVagas"
         />
     <Button
         android:id="@+id/btCadastrarVaga"

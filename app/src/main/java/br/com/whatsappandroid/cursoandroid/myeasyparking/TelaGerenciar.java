@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.sql.Time;
 
 /**
@@ -23,15 +25,17 @@ public class TelaGerenciar extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tela_gerenciar);
 
-        TextView ed = (TextView) findViewById(R.id.txtUsuario);
+        TextView txtUser = (TextView) findViewById(R.id.txtUsuario);
         TextView txtEsta = (TextView) findViewById(R.id.txtEstacionamento);
+        TextView txtVaga = (TextView) findViewById(R.id.txtNumeroDeVagas);
         Button btCadastrarVaga = (Button) findViewById(R.id.btCadastrarVaga);
         Button btBaixa = (Button) findViewById(R.id.btDarBaixa);
         UsuarioSingleton us = new UsuarioSingleton();
+        VagaDAO v = new VagaDAO(TelaGerenciar.this);
 
-
-                ed.setText("Usuário: " + us.getInstance().getLogin().toString());
+                txtUser.setText("Usuário: " + us.getInstance().getLogin().toString());
                 txtEsta.setText("Estacionamento: " + us.getInstance().getEstacionamento().getNome());
+                txtVaga.setText("Vagas em Uso: " + v.listarTudo(us.getInstance().getEstacionamento().getId()).size());
 
         btCadastrarVaga.setOnClickListener(new View.OnClickListener() {
             @Override

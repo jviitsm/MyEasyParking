@@ -86,6 +86,8 @@ public class VagaDAO extends GenericDAO implements DAO<Vaga> {
         }
       return lista;
 
+
+
     }
     public boolean listarPorNome(String nome, int idestacionamento){
         List<Vaga> lista = new ArrayList<>();
@@ -138,8 +140,48 @@ public class VagaDAO extends GenericDAO implements DAO<Vaga> {
         return false;
     }
 
+    public List<Vaga> listarTudo(int idestacionamento) {
+        List<Vaga> lista = new ArrayList<>();
+        UsuarioSingleton us = new UsuarioSingleton();
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM VAGA  where idestacionamento='" + idestacionamento + "'", null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            if (cursor.getCount() > 0) {
+                lista = new ArrayList<>();
+                int idxId = cursor.getColumnIndex("idvaga");
+                int idxNomeCarro = cursor.getColumnIndex("nomeCarro");
+                int idxNomeVaga = cursor.getColumnIndex("nomeVaga");
+                int idxPlaca = cursor.getColumnIndex("placaCarro");
+                int idxDataEntrada = cursor.getColumnIndex("dataEntrada");
+                int idxDataSaida = cursor.getColumnIndex("dataSaida");
+
+                cursor.moveToFirst();
+                do {
+                    Vaga vaga = new Vaga();
+                    lista.add(vaga);
+                    vaga.setId(cursor.getInt(idxId));
+                    vaga.setNome(cursor.getString(idxNomeVaga));
+                    vaga.setPlaca(cursor.getString(idxPlaca));
+                    vaga.setCarro(cursor.getString(idxNomeCarro));
+                    vaga.setDataEntrada(cursor.getString(idxDataEntrada));
+                    vaga.setDataSaida(cursor.getString(idxDataSaida));
+                    vaga.setEstacionamento(us.getInstance().getEstacionamento());
+
+                } while (cursor.moveToNext());
+
+
+            }
+
+
+        }
+        return lista;
+    }
+
     @Override
     public boolean atualizar(Vaga vaga) {
         return false;
     }
 }
+
