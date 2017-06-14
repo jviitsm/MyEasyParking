@@ -55,7 +55,7 @@ public class TelaCadastrarVaga extends AppCompatActivity {
 
 
                     Estacionamento esta = us.getInstance().getEstacionamento();
-
+//a
 
                     if(!vDAO.listarPorNome("Vaga " + edtVaga.getText().toString(),us.getInstance().getEstacionamento().getId())){
                         vaga.setNome(edtVaga.getText().toString());
