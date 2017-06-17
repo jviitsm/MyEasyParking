@@ -126,9 +126,13 @@
 
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar"
+        android:textAlignment="center"
+        android:text="  Cadastrar  "
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/background_light"
+        android:layout_gravity="center"
         android:id="@+id/btCadastrar"
         />
     </LinearLayout>

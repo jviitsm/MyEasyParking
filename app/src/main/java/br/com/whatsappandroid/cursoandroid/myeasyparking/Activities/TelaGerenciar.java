@@ -1,13 +1,13 @@
 package br.com.whatsappandroid.cursoandroid.myeasyparking.Activities;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,8 +24,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import br.com.whatsappandroid.cursoandroid.myeasyparking.DAO.EstacionamentoDAO;
 import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Estacionamento;
-import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Usuario;
 import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.Vaga;
 import br.com.whatsappandroid.cursoandroid.myeasyparking.R;
 import br.com.whatsappandroid.cursoandroid.myeasyparking.Model.UsuarioSingleton;
@@ -46,12 +46,14 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
         setContentView(R.layout.tela_gerenciar);
 
         final UsuarioSingleton us = new UsuarioSingleton();
+        final Estacionamento esta = us.getInstance().getEstacionamento();
         VagaDAO v = new VagaDAO(TelaGerenciar.this);
 
         TextView txtUser = (TextView) findViewById(R.id.txtUsuario);
         TextView txtEsta = (TextView) findViewById(R.id.txtEstacionamento);
         Button btCadastrarVaga = (Button) findViewById(R.id.btCadastrarVaga);
         lista = (ListView) findViewById(R.id.listView);
+
         floatingMensagem = (FloatingActionButton) findViewById(R.id.floatingMensagem);
         cardCadastro = (CardView) findViewById(R.id.cardCadastro);
         ImageButton imgBt = (ImageButton) findViewById(R.id.imgButton);
@@ -70,8 +72,7 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
 
 
         txtUser.setText("Usuário: " + us.getInstance().getLogin().toString());
-        txtEsta.setText("Estacionamento: " + us.getInstance().getEstacionamento().getNome());
-
+        txtEsta.setText("Estacionamento: " + esta.getNome());
 
 
         //Cadastro de vaga
@@ -82,23 +83,18 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
                         edtNomeVaga.getText().toString().isEmpty()) {
                     Toast.makeText(TelaGerenciar.this, "Preencha Todos os Campos!", Toast.LENGTH_SHORT).show();
                 } else {
-
-
                     VagaDAO vDAO = new VagaDAO(TelaGerenciar.this);
                     UsuarioSingleton us = new UsuarioSingleton();
                     Vaga vaga = new Vaga();
-
-
                     Calendar c = Calendar.getInstance();
                     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-
                     String formatDate = df.format(c.getTime());
 
-
-                    Estacionamento esta = us.getInstance().getEstacionamento();
 //a
 
-                    if (!vDAO.listarPorNome("Vaga " + edtNomeVaga.getText().toString(), us.getInstance().getEstacionamento().getId())) {
+                    //Veririca se já tem uma vaga com o mesmo nome no banco
+                    if (!vDAO.listarPorNome("Vaga " + edtNomeVaga.getText().toString(), esta.getId())) {
+
                         vaga.setNome(edtNomeVaga.getText().toString());
                         vaga.setCarro(edtNomeCarro.getText().toString());
                         vaga.setPlaca(edtPlacaCarro.getText().toString());
@@ -148,13 +144,20 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final Vaga vaga = (Vaga) parent.getAdapter().getItem(position);
+
+
         StringBuilder builder = new StringBuilder();
-        builder.append("A Vaga " + vaga.getNome() + " \n");
-        builder.append("Com o Carro " + vaga.getCarro() + "\n");
-        builder.append("De Placa " + vaga.getPlaca() + "\n");
-        builder.append("Tempo de estadia " + getDateDiff(calcularDaVaga(vaga), calcularDataAtual(), TimeUnit.MINUTES) + " minutos\n");
-        builder.append("Valor " +
-                calcularValor(getDateDiff(calcularDaVaga(vaga), calcularDataAtual(), TimeUnit.MINUTES), vaga) + "R$");
+        builder.append(vaga.getNome() + " \n");
+        builder.append("Carro " + vaga.getCarro() + "\n");
+        builder.append("Placa " + vaga.getPlaca() + "\n");
+        builder.append("Tempo de estadia " + getDateDiff(calcularDataDaVaga(vaga), calcularDataAtual(), TimeUnit.MINUTES) + " minutos\n");
+        builder.append("Valor " + calcularValor(getDateDiff(calcularDataDaVaga(vaga), calcularDataAtual(), TimeUnit.MINUTES), vaga) + "R$");
+
+
+        //  Log.e("Aqui", getDateDiff(calcularDataDaVaga(vaga),
+        //      calcularDataAtual(), TimeUnit.MINUTES) + "min");
+        //Log.e("Aqui2", vaga.getEstacionamento().getHoraExtra() + "a");
+
         if (vaga != null) {
             new AlertDialog.Builder(TelaGerenciar.this)
 
@@ -169,9 +172,9 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
                             VagaDAO vd = new VagaDAO(TelaGerenciar.this);
 
 
-                            getDateDiff(calcularDaVaga(vaga), calcularDataAtual(), TimeUnit.MINUTES);
                             vd.deletar(vaga.getId());
                             Toast.makeText(TelaGerenciar.this, "Vaga Finalizada Com Sucesso!", Toast.LENGTH_SHORT).show();
+
 
                             atualizaListaVagas();
 
@@ -188,10 +191,6 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
 
         }
     }
-
-
-
-
 
 
     //Métodos de auxilio
@@ -215,10 +214,11 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
     public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
         long diffInMillies = date2.getTime() - date1.getTime();
         return timeUnit.convert(diffInMillies, TimeUnit.MILLISECONDS);
+
     }
 
 
-    public Date calcularDaVaga(Vaga vaga) {
+    public Date calcularDataDaVaga(Vaga vaga) {
 
 
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -245,7 +245,6 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
             e.printStackTrace();
             return null;
         }
-
     }
 
     public long calcularValor(long minutos, Vaga vaga) {
@@ -253,22 +252,31 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
         long hora = 60;
         long a = 0;
 
+        //tempo de estadia = ao tempo grátis
         if (minutos <= estaVaga.getMinutosGratis()) {
             return 0;
-        } else if (minutos >= estaVaga.getMinutosGratis() && minutos < estaVaga.getMinutosPago()) {
+
+        }
+        //tempo de estadia = ao tempo padrão
+        else if (minutos >= estaVaga.getMinutosGratis() && minutos < estaVaga.getMinutosPago()) {
             a = estaVaga.getPrecoFixo();
             return a;
+            //tempo de estadia = ao tempo padrão + 1 hora extra
         } else if (minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + hora) {
             a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra();
             return a;
+
+
+            //tempo de estadia = ao tempo padrão + 2 horas extras
+
         } else if (minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + (hora * 2)) {
             a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra() + estaVaga.getHoraExtra();
             return a;
+
         } else {
             return 30;
         }
 
     }
-
 
 }

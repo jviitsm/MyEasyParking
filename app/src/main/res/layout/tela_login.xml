@@ -24,30 +24,45 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtLogin"
+        android:layout_marginBottom="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginLeft="45dp"
         android:inputType="text"
+        android:id="@+id/edtLogin"
         android:hint="Usuário"
-        android:textAlignment="center"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtSenha"
+        android:layout_marginBottom="45dp"
+        android:layout_marginRight="45dp"
+        android:layout_marginLeft="45dp"
         android:inputType="textPassword"
         android:hint="Senha"
-        android:textAlignment="center"
+
+        android:id="@+id/edtSenha"
         />
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Fazer Login"
+        android:textAlignment="center"
+        android:text="  Login  "
+        android:layout_marginTop="20dp"
+        android:background="@android:color/holo_green_light"
+        android:textColor="@android:color/background_light"
+        android:layout_gravity="center"
         android:id="@+id/btLogin"
         />
     <Button
         android:id="@+id/btCadastrar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar" />
+        android:textAlignment="center"
+        android:layout_marginTop="20dp"
+        android:text="  Cadastrar  "
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@android:color/background_light"
+        android:layout_gravity="center"/>
 </LinearLayout>
 
 

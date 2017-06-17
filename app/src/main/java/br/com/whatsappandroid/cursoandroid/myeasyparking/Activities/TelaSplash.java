@@ -19,7 +19,7 @@ public class TelaSplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.primeira_activity);
+        setContentView(R.layout.tela_splash);
 
 
 

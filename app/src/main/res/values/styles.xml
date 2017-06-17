@@ -6,5 +6,20 @@
         <item name="colorPrimaryDark">#2e7d32</item>
         <item name="colorAccent">#2e7d32</item>
     </style>
+    <style name="TitleText">
+        <item name="android:textSize">17sp</item>
+        <item name="android:paddingBottom">2dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="HeaderTitleText" parent="TitleText">
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="ListTitleText" parent="TitleText"/>
 
 </resources>

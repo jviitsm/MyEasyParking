@@ -61,6 +61,10 @@ public class EstacionamentoDAO extends GenericDAO implements DAO<Estacionamento>
                     Estacionamento estacionamento = new Estacionamento();
                     estacionamento.setId(c.getInt(c.getColumnIndex("idestacionamento")));
                     estacionamento.setNome(c.getString(c.getColumnIndex("nome")));
+                    estacionamento.setHoraExtra(c.getInt(c.getColumnIndex("hora_extra")));
+                    estacionamento.setMinutosGratis(c.getInt(c.getColumnIndex("minutos_gratis")));
+                    estacionamento.setMinutosPago(c.getInt(c.getColumnIndex("minutos_pago")));
+                    estacionamento.setPrecoFixo(c.getInt(c.getColumnIndex("preco_fixo")));
 
                     listEstacionamento.add(estacionamento);
                 } while(c.moveToNext());

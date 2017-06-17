@@ -5,8 +5,7 @@ package br.com.whatsappandroid.cursoandroid.myeasyparking.Model;
  */
 
 public class Estacionamento  {
-    private int id,minutosGratis,precoFixo,minutosPago,horaExtra
-            ;
+    private int id,minutosGratis,precoFixo,minutosPago,horaExtra;
     private String nome;
 
     public int getId() {
