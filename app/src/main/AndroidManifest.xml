@@ -21,7 +21,6 @@
         <activity android:name=".Activities.TelaCadastro"></activity>
         <activity android:name=".Activities.TelaGerenciar"></activity>
         <activity android:name=".Activities.TelaCadastrarVaga"></activity>
-        <activity android:name=".Activities.ListaVagas"></activity>
         <activity android:name=".Activities.TelaLogin"></activity>
     </application>
 

@@ -85,9 +85,11 @@ public class VagaDAO extends GenericDAO implements DAO<Vaga> {
                     vaga.setEstacionamento(us.getInstance().getEstacionamento());
 
                 }while (cursor.moveToNext());
+                return lista;
             }
         }
-      return lista;
+        return null;
+
 
 
 
