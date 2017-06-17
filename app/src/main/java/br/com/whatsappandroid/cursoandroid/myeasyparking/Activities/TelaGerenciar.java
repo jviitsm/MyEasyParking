@@ -265,7 +265,7 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
         } else if (minutos >= estaVaga.getMinutosPago() && minutos < estaVaga.getMinutosPago() + hora) {
             a = estaVaga.getPrecoFixo() + estaVaga.getHoraExtra();
             return a;
-
+//a
 
             //tempo de estadia = ao tempo padrão + 2 horas extras
 
