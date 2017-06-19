@@ -17,19 +17,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Usuário:"
-        android:textSize="30dp"
+        android:textSize="12dp"
         />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="text"
+
         android:id="@+id/edtLogin"
         />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Senha:"
-        android:textSize="30dp"
+        android:textSize="12dp"
+
         />
     <EditText
         android:layout_width="match_parent"
@@ -41,7 +43,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Repetir Senha:"
-        android:textSize="30dp"
+        android:textSize="12dp"
+
         />
     <EditText
         android:layout_width="match_parent"
@@ -53,7 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Nome Estacionamento:"
-        android:textSize="30dp"
+        android:textSize="12dp"
+
         />
     <EditText
         android:layout_width="match_parent"
@@ -65,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Franquia em minutos(Tempo Grátis): "
-        android:textSize="30dp"
+        android:textSize="12dp"
         />
     <EditText
         android:layout_width="match_parent"
@@ -80,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Valor cobrado por tempo mínimo em minutos: "
-        android:textSize="30dp"
+        android:textSize="12dp"
         />
 
     <EditText
@@ -97,7 +101,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Tempo mínimo em minutos: "
-        android:textSize="30dp"
+        android:textSize="12dp"
         />
 
     <EditText
@@ -114,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Valor da hora extra: :"
-        android:textSize="30dp"
+        android:textSize="12dp"
         />
 
     <EditText
