@@ -247,6 +247,7 @@ public class TelaGerenciar extends AppCompatActivity implements AdapterView.OnIt
         }
     }
 
+
     public long calcularValor(long minutos, Vaga vaga) {
         Estacionamento estaVaga = vaga.getEstacionamento();
         long hora = 60;
